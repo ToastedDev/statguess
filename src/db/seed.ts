@@ -45,7 +45,10 @@ async function main() {
   await db.insert(videosTable).values(
     videos.map((video: any) => ({
       id: video.id.videoId,
-      title: video.snippet.title.replace("&#39;s", "'"),
+      title: video.snippet.title
+        .replace("&#39;", "'")
+        .replace("&quot;", '"')
+        .replace("&amp;", "&"),
       thumbnail: `https://img.youtube.com/vi/${video.id.videoId}/maxresdefault.jpg`,
       channelId,
     })),

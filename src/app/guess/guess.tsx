@@ -52,7 +52,9 @@ export default function Guess({
     const guess = inputRef.current!.value;
     if (!guess.length) return;
 
-    if (guess.toLowerCase() !== video.channel.name.toLowerCase()) {
+    if (
+      guess.toLowerCase().trim() !== video.channel.name.toLowerCase().trim()
+    ) {
       if (attempts >= 2) {
         setGuessed("wrong");
         setAttempts(0);

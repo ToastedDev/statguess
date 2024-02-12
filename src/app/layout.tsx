@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s — Statguess",
   },
   description:
-    "Guess your favorite statistics creators by their titles and thumbnails..",
+    "Guess your favorite statistics creators by their titles and thumbnails.",
   twitter: {
     card: "summary_large_image",
     creator: "@ToastedDev",

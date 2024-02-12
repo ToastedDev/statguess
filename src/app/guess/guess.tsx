@@ -8,6 +8,7 @@ import { Image as ImageIcon, LucideIcon, Text } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { useLocalStorage } from "@/lib/useLocalStorage";
 
 type Video = typeof videos.$inferSelect & {
   channel: typeof channels.$inferSelect;
@@ -38,6 +39,7 @@ export default function Guess({
   const [attempts, setAttempts] = useState(0);
   const [guessed, setGuessed] = useState<GuessedType>();
   const [score, setScore] = useState(0);
+  const [highscore, setHighscore] = useLocalStorage(`highscore.${by}`, 0);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -59,7 +61,11 @@ export default function Guess({
     } else {
       setGuessed("right");
       setAttempts(0);
-      setScore((score) => score + 1);
+      setScore((score) => {
+        score = score + 1;
+        if (score > highscore) setHighscore(score);
+        return score;
+      });
     }
     inputRef.current!.value = "";
   }
@@ -114,6 +120,11 @@ export default function Guess({
           )}
         </div>
       </div>
+      {attempts > 0 ? (
+        <p className="text-red-600 font-semibold text-sm tracking-tight">
+          Wrong! {3 - attempts} attempts left...
+        </p>
+      ) : null}
       {guessed ? (
         <div className="flex flex-col items-center justify-center gap-2 text-center">
           <div>
@@ -165,17 +176,16 @@ export default function Guess({
           </form>
         </>
       )}
-      {attempts > 0 ? (
-        <p className="text-red-600 font-semibold text-sm tracking-tight mt-0.5">
-          Wrong! {3 - attempts} attempts left...
-        </p>
-      ) : null}
-      {score > 0 && guessed !== "wrong" ? (
-        <p className="font-semibold text-sm tracking-tight mt-0.5">
+      <div className="flex flex-col items-center justify-center text-center gap-0.5 mt-0.5">
+        <p className="font-semibold text-sm tracking-tight">
           <span className="text-muted-foreground">Score:</span>{" "}
           {score.toLocaleString()}
         </p>
-      ) : null}
+        <p className="text-yellow-500 font-semibold text-sm tracking-tight">
+          <span className="text-yellow-700">High Score:</span>{" "}
+          {highscore.toLocaleString()}
+        </p>
+      </div>
     </div>
   );
 }

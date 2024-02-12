@@ -1,5 +1,4 @@
 import { buttonVariants } from "@/components/ui/button";
-import { get } from "@vercel/edge-config";
 import { Text, Image } from "lucide-react";
 import Link from "next/link";
 

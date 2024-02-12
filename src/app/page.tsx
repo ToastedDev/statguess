@@ -1,8 +1,9 @@
 import { buttonVariants } from "@/components/ui/button";
+import { get } from "@vercel/edge-config";
 import { Text, Image } from "lucide-react";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
   return (
     <div className="h-screen flex flex-col items-center justify-center gap-3 text-center">
       <div className="flex flex-col gap-1 text-center items-center justify-center">

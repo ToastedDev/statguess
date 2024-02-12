@@ -12,13 +12,18 @@ export const metadata: Metadata = {
   description:
     "Guess your favorite statistics creators by their titles and thumbnails.",
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     creator: "@ToastedDev",
     creatorId: "1145171094556426240",
   },
   openGraph: {
     type: "website",
     url: "/",
+    images: [
+      {
+        url: "https://statguess.toasted.dev/logo.jpg",
+      },
+    ],
   },
   icons: {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
